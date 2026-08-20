@@ -1,11 +1,9 @@
 [gd_scene format=3 uid="uid://dm5m3ucvdieqc"]
 
 [ext_resource type="Texture2D" uid="uid://cdwj7owficptu" path="res://pictures/TitleScreen.jpg" id="1_ak2if"]
-[ext_resource type="Script" uid="uid://bsx8c5upmtx7g" path="res://title_screen.gd" id="1_ig5kc"]
 [ext_resource type="Texture2D" uid="uid://cv6suw7ti25ef" path="res://pictures/Name-removebg-preview.png" id="2_ig5kc"]
 
 [node name="TitleScreen" type="Node2D" unique_id=1956723466]
-script = ExtResource("1_ig5kc")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1008042368]
 offset_right = 1154.0
@@ -43,7 +41,3 @@ offset_right = 755.0
 offset_bottom = 593.0
 theme_override_font_sizes/font_size = 28
 text = "Quit"
-
-[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
