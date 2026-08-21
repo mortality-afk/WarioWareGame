@@ -25,18 +25,19 @@ func _ready() -> void:
 	#after this is compeleted...
 	timer_end = true # now we're saying \"oh ye you ran out of time\"
 
-func _process(delta: float) -> void: # running every frame brochacho
+func _process(_delta: float) -> void: # running every frame brochacho
 	
-	if blood_collected == 3: # the double equals is just an argument asking if it's the same, with \"=\" it'll give an error
+	if blood_collected == 3:
+	 # the double equals is just an argument asking if it's the same, with \"=\" it'll give an error
 		if Global.minigames_done > 3: # we access a global script and see how many minigames have been compeleted
-			get_tree().change_scene_to_file(\"res://scenes/level_scene.tscn\") # change current play scene into another, but you make your own finish screen in a later challenge, dont worry abt this rn
+			get_tree().change_scene_to_file(\"res://level_scene.tscn\") # change current play scene into another, but you make your own finish screen in a later challenge, dont worry abt this rn
 		else:
-			get_tree().change_scene_to_file(\"res://scenes/timer_screen.tscn\") # go back to the intermission scene
+			get_tree().change_scene_to_file(\"res://level_scene.tscn\") # go back to the intermission scene
 	
 	if timer_end: # if the timer does end...
 		Global.minigames_done -=1 #go back a minigame
 		Global.lives -= 1 # lose ur lives
-		get_tree().change_scene_to_file(\"res://scenes/timer_screen.tscn\") # back to intermission
+		get_tree().change_scene_to_file(\"res://level_scene.tscn\") # back to intermission
 		
 
 func blood_collect() -> void: # cool function that you connect to those garlics
@@ -45,15 +46,15 @@ func blood_collect() -> void: # cool function that you connect to those garlics
 
 
 func _on_blood_blood_collected() -> void:
-	pass # Replace with function body.
+	blood_collect()
 
 
 func _on_blood_2_blood_collected() -> void:
-	pass # Replace with function body.
+	blood_collect()
 
 
 func _on_blood_3_blood_collected() -> void:
-	pass # Replace with function body.
+	blood_collect()
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p21fd"]
@@ -89,7 +90,7 @@ extends Node2D
 # make a signal
 signal blood_collected
 
-func _process(delta: float) -> void: # this runs EVERY FRAME! 
+func _process(_delta: float) -> void: # this runs EVERY FRAME! 
 	
 	if player_area.overlaps_area(self_area): # checks if overlapping
 		if self.visible:
@@ -206,7 +207,7 @@ script/source = "extends Node2D
 # make a signal
 signal blood_collected
 
-func _process(delta: float) -> void: # this runs EVERY FRAME! 
+func _process(_delta: float) -> void: # this runs EVERY FRAME! 
 	
 	if player_area.overlaps_area(self_area): # checks if overlapping
 		if self.visible:
@@ -231,7 +232,7 @@ script/source = "extends Node2D
 # make a signal
 signal blood_collected
 
-func _process(delta: float) -> void: # this runs EVERY FRAME! 
+func _process(_delta: float) -> void: # this runs EVERY FRAME! 
 	
 	if player_area.overlaps_area(self_area): # checks if overlapping
 		if self.visible:
@@ -378,6 +379,7 @@ expand_mode = 1
 [node name="animation" type="AnimationPlayer" parent="Blood" unique_id=1027391467]
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_wh6qq")
+autoplay = &"RESET"
 
 [node name="Area2D" type="Area2D" parent="Blood" unique_id=96357504]
 position = Vector2(39, 226)
@@ -400,6 +402,7 @@ expand_mode = 1
 [node name="animation" type="AnimationPlayer" parent="Blood2" unique_id=1174495162]
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_wh6qq")
+autoplay = &"RESET"
 
 [node name="Area2D" type="Area2D" parent="Blood2" unique_id=1618814033]
 position = Vector2(1081, 79)
@@ -422,6 +425,7 @@ expand_mode = 1
 [node name="animation" type="AnimationPlayer" parent="Blood3" unique_id=1097744364]
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_wh6qq")
+autoplay = &"RESET"
 
 [node name="Area2D" type="Area2D" parent="Blood3" unique_id=328154524]
 position = Vector2(1110, 443)
