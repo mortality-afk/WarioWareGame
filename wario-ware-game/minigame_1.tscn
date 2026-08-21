@@ -1,0 +1,341 @@
+[gd_scene format=3 uid="uid://d1tk3xi631jt3"]
+
+[ext_resource type="Texture2D" uid="uid://bkga8nakfbkas" path="res://pictures/minigame_1.jpg" id="1_gi7k6"]
+[ext_resource type="PackedScene" uid="uid://ckemy0upjpia0" path="res://player.tscn" id="2_0hvi2"]
+[ext_resource type="PackedScene" uid="uid://4rjag8gj71xa" path="res://ThemedTimer.tscn" id="3_0hvi2"]
+
+[sub_resource type="GDScript" id="GDScript_gi7k6"]
+script/source = "extends Node2D
+@onready var themed_timer: Node2D = $ThemedTimer 
+# ^^^ You dragged this in the scene by the way 
+
+
+
+var blood_collected = 0 # just keeping track of garlic collected
+var timer_end = false # boolean (true or false) stating whether the timer ended
+
+func _ready() -> void:
+
+		#Below you can see that I have a function that I named. I grab a 
+		#function from it that was created in it's script and use `await` to 
+		# tell the script to wait for a signal, or for when a function finshes
+
+
+	await themed_timer.Timer(10.0) #accessing a function from this node
+	#after this is compeleted...
+	timer_end = true # now we're saying \"oh ye you ran out of time\"
+
+func _process(delta: float) -> void: # running every frame brochacho
+	
+	if blood_collected == 3: # the double equals is just an argument asking if it's the same, with \"=\" it'll give an error
+		if Global.minigames_done > 3: # we access a global script and see how many minigames have been compeleted
+			get_tree().change_scene_to_file(\"res://scenes/level_scene.tscn\") # change current play scene into another, but you make your own finish screen in a later challenge, dont worry abt this rn
+		else:
+			get_tree().change_scene_to_file(\"res://scenes/timer_screen.tscn\") # go back to the intermission scene
+	
+	if timer_end: # if the timer does end...
+		Global.minigames_done -=1 #go back a minigame
+		Global.lives -= 1 # lose ur lives
+		get_tree().change_scene_to_file(\"res://scenes/timer_screen.tscn\") # back to intermission
+		
+
+func blood_collect() -> void: # cool function that you connect to those garlics
+	blood_collected = blood_collected +1
+	return
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p21fd"]
+size = Vector2(1159.9375, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gi7k6"]
+size = Vector2(476.9375, 27.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0hvi2"]
+size = Vector2(476.9375, 27.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r6gmb"]
+size = Vector2(476.9375, 27.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wh6qq"]
+size = Vector2(256, 27.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_or1ld"]
+size = Vector2(177.85156, 29.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jife1"]
+size = Vector2(42.5, 659.5)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gi7k6"]
+load_path = "res://.godot/imported/BloodDrop-removebg-preview.png-eb3c43f802377f82d6de09501fdd2faf.ctex"
+
+[sub_resource type="Animation" id="Animation_0hvi2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blood/Blood:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10, 182)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Blood2/Blood:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1082, 33)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Blood3/Blood:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1079, 400)]
+}
+
+[sub_resource type="Animation" id="Animation_r6gmb"]
+resource_name = "floating"
+length = 1.1
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blood/Blood:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(10, 182), Vector2(8, 151)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Blood2/Blood:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.03, 1.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1082, 33), Vector2(1085, 9)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Blood3/Blood:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.02),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1079, 400), Vector2(1079, 367)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wh6qq"]
+_data = {
+&"RESET": SubResource("Animation_0hvi2"),
+&"floating": SubResource("Animation_r6gmb")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p21fd"]
+radius = 46.010868
+
+[node name="minigame_1" type="Node2D" unique_id=1724085448]
+position = Vector2(1, -1)
+script = SubResource("GDScript_gi7k6")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=2058386278]
+repeat_size = Vector2(1155, 0)
+
+[node name="Background" type="TextureRect" parent="Parallax2D" unique_id=1573128048]
+offset_right = 1155.0
+offset_bottom = 600.0
+texture = ExtResource("1_gi7k6")
+
+[node name="Platform" type="StaticBody2D" parent="." unique_id=868573103]
+position = Vector2(-1, 647)
+
+[node name="ColorRect" type="ColorRect" parent="Platform" unique_id=1015389203]
+offset_left = -8.0
+offset_top = -61.0
+offset_right = 1157.0
+offset_bottom = 9.0
+color = Color(0.11, 0.033, 0.017600004, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform" unique_id=863905044]
+position = Vector2(577.03125, -25)
+shape = SubResource("RectangleShape2D_p21fd")
+
+[node name="Platform2" type="StaticBody2D" parent="." unique_id=1615534439]
+position = Vector2(5, 399)
+
+[node name="ColorRect" type="ColorRect" parent="Platform2" unique_id=1294941279]
+offset_left = -5.0
+offset_top = -14.0
+offset_right = 472.0
+offset_bottom = 15.0
+color = Color(0.080666386, 0.032564197, 0.03256655, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2" unique_id=1034726466]
+position = Vector2(232.53125, -1)
+shape = SubResource("RectangleShape2D_gi7k6")
+
+[node name="Platform3" type="StaticBody2D" parent="." unique_id=1180109344]
+position = Vector2(1150, 510)
+
+[node name="ColorRect" type="ColorRect" parent="Platform3" unique_id=2099478126]
+offset_left = -472.0
+offset_top = -22.0
+offset_right = 5.0
+offset_bottom = 7.0
+color = Color(0.080666386, 0.032564197, 0.03256655, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform3" unique_id=1821478465]
+position = Vector2(-236, -9)
+shape = SubResource("RectangleShape2D_0hvi2")
+
+[node name="Platform4" type="StaticBody2D" parent="." unique_id=1227492165]
+position = Vector2(957, 216)
+
+[node name="ColorRect" type="ColorRect" parent="Platform4" unique_id=1883698882]
+offset_left = -464.0
+offset_top = -33.0
+offset_right = 13.0
+offset_bottom = -4.0
+color = Color(0.080666386, 0.032564197, 0.03256655, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform4" unique_id=538409005]
+position = Vector2(-224, -18)
+shape = SubResource("RectangleShape2D_r6gmb")
+
+[node name="Platform5" type="StaticBody2D" parent="." unique_id=899437331]
+position = Vector2(248, 299)
+
+[node name="ColorRect" type="ColorRect" parent="Platform5" unique_id=1724937543]
+offset_left = -253.0
+offset_top = -33.0
+offset_right = 13.0
+offset_bottom = -4.0
+color = Color(0.080666386, 0.032564197, 0.03256655, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform5" unique_id=367249644]
+position = Vector2(-121, -18)
+shape = SubResource("RectangleShape2D_wh6qq")
+
+[node name="Platform6" type="StaticBody2D" parent="." unique_id=664279738]
+position = Vector2(1491, 147)
+
+[node name="ColorRect" type="ColorRect" parent="Platform6" unique_id=1072913630]
+offset_left = -464.0
+offset_top = -33.0
+offset_right = -285.0
+offset_bottom = -4.0
+color = Color(0.080666386, 0.032564197, 0.03256655, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform6" unique_id=855671432]
+position = Vector2(-373.92578, -18)
+shape = SubResource("RectangleShape2D_or1ld")
+
+[node name="Platform7" type="StaticBody2D" parent="." unique_id=936319261]
+position = Vector2(1771, 375)
+
+[node name="ColorRect" type="ColorRect" parent="Platform7" unique_id=1677392533]
+offset_left = -615.0
+offset_top = -368.0
+offset_right = -571.0
+offset_bottom = 262.0
+color = Color(0.080666386, 0.032564197, 0.03256655, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform7" unique_id=576832378]
+position = Vector2(-594.25, -49.5)
+shape = SubResource("RectangleShape2D_jife1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Platform7" unique_id=163316126]
+position = Vector2(-1790, -47.25)
+shape = SubResource("RectangleShape2D_jife1")
+
+[node name="player" parent="." unique_id=287802795 instance=ExtResource("2_0hvi2")]
+position = Vector2(148, 542)
+
+[node name="Blood" type="Node2D" parent="." unique_id=1902281340]
+
+[node name="Blood" type="TextureRect" parent="Blood" unique_id=1825386531]
+offset_left = 10.0
+offset_top = 182.0
+offset_right = 68.999756
+offset_bottom = 260.99994
+texture = SubResource("CompressedTexture2D_gi7k6")
+expand_mode = 1
+
+[node name="animation" type="AnimationPlayer" parent="Blood" unique_id=1027391467]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_wh6qq")
+
+[node name="Area2D" type="Area2D" parent="Blood" unique_id=96357504]
+position = Vector2(39, 226)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blood/Area2D" unique_id=1566498480]
+position = Vector2(6, -2)
+shape = SubResource("CircleShape2D_p21fd")
+
+[node name="Blood2" type="Node2D" parent="." unique_id=9374585]
+
+[node name="Blood" type="TextureRect" parent="Blood2" unique_id=1984580412]
+offset_left = 1082.0
+offset_top = 33.0
+offset_right = 1141.0
+offset_bottom = 111.99994
+texture = SubResource("CompressedTexture2D_gi7k6")
+expand_mode = 1
+
+[node name="animation" type="AnimationPlayer" parent="Blood2" unique_id=1174495162]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_wh6qq")
+
+[node name="Area2D" type="Area2D" parent="Blood2" unique_id=1618814033]
+position = Vector2(1081, 79)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blood2/Area2D" unique_id=41951663]
+position = Vector2(34, -18)
+shape = SubResource("CircleShape2D_p21fd")
+
+[node name="Blood3" type="Node2D" parent="." unique_id=886237567]
+
+[node name="Blood" type="TextureRect" parent="Blood3" unique_id=795370113]
+offset_left = 1079.0
+offset_top = 400.0
+offset_right = 1138.0
+offset_bottom = 478.99994
+texture = SubResource("CompressedTexture2D_gi7k6")
+expand_mode = 1
+
+[node name="animation" type="AnimationPlayer" parent="Blood3" unique_id=1097744364]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_wh6qq")
+
+[node name="Area2D" type="Area2D" parent="Blood3" unique_id=328154524]
+position = Vector2(1110, 443)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blood3/Area2D" unique_id=814730207]
+position = Vector2(2, -10)
+shape = SubResource("CircleShape2D_p21fd")
+
+[node name="ThemedTimer" parent="." unique_id=1474985060 instance=ExtResource("3_0hvi2")]
+position = Vector2(-896, 10)

@@ -3,7 +3,7 @@
 [sub_resource type="GDScript" id="GDScript_p21fd"]
 resource_name = "ThemedTimer"
 script/source = "extends Node2D
-@onready var timer: RichTextLabel = $timer #literally just the richlabeltext
+@onready var timer: RichTextLabel = $Timer #literally just the richlabeltext
 
 var time : float
 
@@ -22,7 +22,7 @@ func Timer(start_time: float): # making a new function for timer countdown!
 	time = start_time
 	
 	while time > 0.0: # run if timer hasnt reached 0
-		await wait(0.10)
+		await wait(0.20)
 		time = time - 0.10
 	
 	#when timer reaches 0
@@ -32,11 +32,14 @@ func wait(seconds: float) -> void: # write this simple function out for wait!
 	await get_tree().create_timer(seconds).timeout # makes u wait
 "
 
-[node name="Node2D" type="Node2D" unique_id=1474985060]
+[node name="ThemedTimer" type="Node2D" unique_id=1474985060]
 script = SubResource("GDScript_p21fd")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=290263194]
+[node name="Timer" type="RichTextLabel" parent="." unique_id=290263194]
 offset_left = 932.0
-offset_top = 4.0
-offset_right = 1151.0
+offset_top = -16.0
+offset_right = 1149.0
 offset_bottom = 63.0
+theme_override_font_sizes/normal_font_size = 23
+text = "
+Time:"
