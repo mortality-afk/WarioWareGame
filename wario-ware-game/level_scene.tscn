@@ -52,9 +52,9 @@ func _process(delta: float) -> void: # runs EVERY FRAME
 			blood_3.hide()
 			blood_4.hide()
 		0:
-			blood_container.hide() # just hides everything
+			blood_container.hide() 
 	
-	timer.text = str(time) # make ths text reflect the value of the time variable. this makes names easier. the str() converts the int to a String
+	timer.text = str(time) 
 	level.text = \"Level \" + str(Global.minigames_done) # this tells you want minigame you're on using concatenation (google the word yo)
 
 func Timer(start_time: float): # making a new function for timer countdown!
@@ -110,7 +110,7 @@ texture = ExtResource("2_187gu")
 layout_mode = 2
 texture = ExtResource("2_187gu")
 
-[node name="level" type="RichTextLabel" parent="." unique_id=161143517]
+[node name="Level" type="RichTextLabel" parent="." unique_id=161143517]
 offset_left = 509.0
 offset_top = 329.0
 offset_right = 668.0

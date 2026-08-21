@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-NewAutoloadScript="*uid://bbberv3b0qn3e"
+Global="*uid://cmucol5v28rti"
 
 [display]
 
