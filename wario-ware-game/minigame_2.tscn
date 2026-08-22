@@ -1,0 +1,156 @@
+[gd_scene format=3 uid="uid://b3tt1b1pd1t50"]
+
+[ext_resource type="Texture2D" uid="uid://bkga8nakfbkas" path="res://pictures/minigame_1.jpg" id="1_2425y"]
+[ext_resource type="Texture2D" uid="uid://csnd80b8i3n6y" path="res://pictures/BloodDrop-removebg-preview.png" id="2_5x31c"]
+[ext_resource type="PackedScene" uid="uid://4rjag8gj71xa" path="res://ThemedTimer.tscn" id="3_3qiw4"]
+
+[sub_resource type="GDScript" id="GDScript_1rkry"]
+script/source = "extends Node2D
+@onready var themed_timer: Node2D = $ThemedTimer
+
+var buttons_pressed := 0
+var timer_end = false
+
+func _ready() -> void:
+	await themed_timer.Timer(7.0)
+	#after this is completed...
+	timer_end = true 
+
+
+func _process(_delta: float) -> void:
+	if buttons_pressed == 5:
+		if Global.minigames_done > 3:
+			get_tree().change_scene_to_file(\"res://done_screen.tscn\")
+		else:
+			get_tree().change_scene_to_file(\"res://level_scene.tscn\")
+	
+	if timer_end:
+		Global.lives -= 1
+		Global.minigames_done -=1
+		get_tree().change_scene_to_file(\"res://level_scene.tscn\")
+
+
+func _on_button_1_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_button_2_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_button_3_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_button_4_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_button_5_pressed() -> void:
+	pass # Replace with function body.
+"
+
+[sub_resource type="GDScript" id="GDScript_p21fd"]
+script/source = "extends TextureButton
+@onready var parent = $\"..\"
+
+func _on_pressed() -> void: #YOU NEED TO CONNECT THIS SIGNAL FROM THE TAB NEXT TO INSPECTOR!!
+	hide()
+	parent.buttons_pressed += 1
+"
+
+[sub_resource type="GDScript" id="GDScript_kpcyo"]
+script/source = "extends TextureButton
+@onready var parent = $\"..\"
+
+func _on_pressed() -> void: #YOU NEED TO CONNECT THIS SIGNAL FROM THE TAB NEXT TO INSPECTOR!!
+	hide()
+	parent.buttons_pressed += 1
+"
+
+[sub_resource type="GDScript" id="GDScript_dq63v"]
+script/source = "extends TextureButton
+@onready var parent = $\"..\"
+
+func _on_pressed() -> void: #YOU NEED TO CONNECT THIS SIGNAL FROM THE TAB NEXT TO INSPECTOR!!
+	hide()
+	parent.buttons_pressed += 1
+"
+
+[sub_resource type="GDScript" id="GDScript_7ruym"]
+script/source = "extends TextureButton
+@onready var parent = $\"..\"
+
+func _on_pressed() -> void: #YOU NEED TO CONNECT THIS SIGNAL FROM THE TAB NEXT TO INSPECTOR!!
+	hide()
+	parent.buttons_pressed += 1
+"
+
+[sub_resource type="GDScript" id="GDScript_4xv1r"]
+script/source = "extends TextureButton
+@onready var parent = $\"..\"
+
+func _on_pressed() -> void: #YOU NEED TO CONNECT THIS SIGNAL FROM THE TAB NEXT TO INSPECTOR!!
+	hide()
+	parent.buttons_pressed += 1
+"
+
+[node name="Minigame_2" type="Node2D" unique_id=131572602]
+script = SubResource("GDScript_1rkry")
+
+[node name="ThemedTimer" parent="." unique_id=1474985060 instance=ExtResource("3_3qiw4")]
+position = Vector2(-435, 148)
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=763941834]
+repeat_size = Vector2(1155, 0)
+
+[node name="Background" type="TextureRect" parent="Parallax2D" unique_id=448806176]
+offset_right = 1155.0
+offset_bottom = 649.0
+texture = ExtResource("1_2425y")
+
+[node name="Button_1" type="TextureButton" parent="." unique_id=1523979736]
+offset_left = 54.0
+offset_top = 26.0
+offset_right = 173.0
+offset_bottom = 156.0
+texture_normal = ExtResource("2_5x31c")
+script = SubResource("GDScript_p21fd")
+
+[node name="Button_2" type="TextureButton" parent="." unique_id=1974872774]
+offset_left = 985.0
+offset_top = 461.0
+offset_right = 1104.0
+offset_bottom = 591.0
+texture_normal = ExtResource("2_5x31c")
+script = SubResource("GDScript_kpcyo")
+
+[node name="Button_3" type="TextureButton" parent="." unique_id=344044209]
+offset_left = 65.0
+offset_top = 473.0
+offset_right = 184.0
+offset_bottom = 603.0
+texture_normal = ExtResource("2_5x31c")
+script = SubResource("GDScript_dq63v")
+
+[node name="Button_4" type="TextureButton" parent="." unique_id=318018210]
+offset_left = 530.0
+offset_top = 302.0
+offset_right = 649.0
+offset_bottom = 432.0
+texture_normal = ExtResource("2_5x31c")
+script = SubResource("GDScript_7ruym")
+
+[node name="Button_5" type="TextureButton" parent="." unique_id=1793932096]
+offset_left = 1000.0
+offset_top = 44.0
+offset_right = 1119.0
+offset_bottom = 174.0
+texture_normal = ExtResource("2_5x31c")
+script = SubResource("GDScript_4xv1r")
+
+[connection signal="pressed" from="Button_1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="Button_2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Button_3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Button_4" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="Button_5" to="." method="_on_button_5_pressed"]
